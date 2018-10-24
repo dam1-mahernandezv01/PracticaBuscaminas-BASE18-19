@@ -20,13 +20,13 @@ public class ControlJuego {
 	private int puntuacion;
 	
 	
-	public ControlJuego() {
-		//Creamos el tablero:
-		tablero = new int[LADO_TABLERO][LADO_TABLERO];
-		
-		//Inicializamos una nueva partida
-		inicializarPartida();
-	}
+//	public ControlJuego() {
+//		//Creamos el tablero:
+//		tablero = new int[LADO_TABLERO][LADO_TABLERO];
+//		
+//		//Inicializamos una nueva partida
+//		inicializarPartida();
+//	}
 	
 	
 	/**Método para generar un nuevo tablero de partida:
@@ -34,21 +34,21 @@ public class ControlJuego {
 	 * @post: Al final el tablero se habrá inicializado con tantas minas como marque la variable MINAS_INICIALES. 
 	 * 			El resto de posiciones que no son minas guardan en el entero cuántas minas hay alrededor de la celda
 	 */
-	public void inicializarPartida(){
-
-		//TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
-		
-		
-		
-		//Al final del m�todo hay que guardar el n�mero de minas para las casillas que no son mina:
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[i].length; j++) {
-				if (tablero[i][j] != MINA){
-					tablero[i][j] = calculoMinasAdjuntas(i,j);
-				}
-			}
-		}
-	}
+//	public void inicializarPartida(){
+//
+//		//TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
+//		
+//		
+//		
+//		//Al final del m�todo hay que guardar el n�mero de minas para las casillas que no son mina:
+//		for (int i = 0; i < tablero.length; i++) {
+//			for (int j = 0; j < tablero[i].length; j++) {
+//				if (tablero[i][j] != MINA){
+//					tablero[i][j] = calculoMinasAdjuntas(i,j);
+//				}
+//			}
+//		}
+//	}
 	
 	/**Cálculo de las minas adjuntas: 
 	 * Para calcular el número de minas tenemos que tener en cuenta que no nos salimos nunca del tablero.
@@ -58,9 +58,9 @@ public class ControlJuego {
 	 * @param j: posición horizontal de la casilla a rellenar
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
-	private int calculoMinasAdjuntas(int i, int j){
-
-	}
+//	private int calculoMinasAdjuntas(int i, int j){
+//
+//	}
 	
 	/**
 	 * Método que nos permite 
@@ -69,9 +69,9 @@ public class ControlJuego {
 	 * @param j: posición horizontalmente de la casilla a abrir
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
-	public boolean abrirCasilla(int i, int j){
-
-	}
+//	public boolean abrirCasilla(int i, int j){
+//
+//	}
 	
 	
 	
@@ -79,8 +79,8 @@ public class ControlJuego {
 	 * Método que checkea si se ha terminado el juego porque se han abierto todas las casillas.
 	 * @return Devuelve verdadero si se han abierto todas las celdas que no son minas.
 	 **/
-	public boolean esFinJuego(){
-	}
+//	public boolean esFinJuego(){
+//	}
 	
 	
 	/**
@@ -104,14 +104,14 @@ public class ControlJuego {
 	 * @param j : posición horizontal de la cela.
 	 * @return Un entero que representa el número de minas alrededor de la celda
 	 */
-	public int getMinasAlrededor(int i, int j) {
-	}
+//	public int getMinasAlrededor(int i, int j) {
+//	}
 
 	/**
 	 * Método que devuelve la puntuación actual
 	 * @return Un entero con la puntuación actual
 	 */
-	public int getPuntuacion() {
-	}
+//	public int getPuntuacion() {
+//	}
 	
 }
