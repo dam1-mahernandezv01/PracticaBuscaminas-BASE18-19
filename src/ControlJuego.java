@@ -57,7 +57,7 @@ public class ControlJuego {
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[i].length; j++) {
 				if (tablero[i][j] != MINA){
-					//tablero[i][j] = calculoMinasAdjuntas(i,j);
+					tablero[i][j] = calculoMinasAdjuntas(i,j);
 				}
 			}
 		}
@@ -73,11 +73,19 @@ public class ControlJuego {
 	 * 
 	 * @param i: posicion vertical de la casilla a rellenar
 	 * @param j: posicion horizontal de la casilla a rellenar
-	 * @return : El número de minas que hay alrededor de la casilla [i][j]
+	 * @return : El numero de minas que hay alrededor de la casilla [i][j]
 	 **/
-//	private int calculoMinasAdjuntas(int i, int j){
-//
-//	}
+	private int calculoMinasAdjuntas(int i, int j){
+		int minasAlrededor = 0;
+		for (i = Math.max(0, i-1); i < Math.min(i+1, LADO_TABLERO); i++) {
+			for (j = Math.max(0, j-1); i < Math.min(j+1, LADO_TABLERO); i++) {
+				if (tablero[i][j] == MINA) {
+					minasAlrededor++;
+				}
+			}
+		}
+		return minasAlrededor;
+	}
 	
 	/**
 	 * Metodo que nos permite 
