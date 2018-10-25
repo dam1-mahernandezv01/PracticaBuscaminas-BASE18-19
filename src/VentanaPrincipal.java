@@ -39,7 +39,7 @@ public class VentanaPrincipal {
 	
 	//LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	ControlJuego juego;
-	VentanaPrincipal ventanaPrincipal = this;
+	VentanaPrincipal ventanaPrincipal = this; // referencia a ella misma para pasarsela al ActionBoton
 	
 	
 	//Constructor, marca el tamaño y el cierre del frame
@@ -176,21 +176,20 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
 		int ejeY = i, ejeX = j;
-		Color numeroColor;
 		JLabel textoMinas;
 
-		textoMinas = new JLabel(juego.getMinasAlrededor(ejeY, ejeX) + "");
+		textoMinas = new JLabel(String.valueOf(juego.getMinasAlrededor(ejeY, ejeX)));
 		textoMinas.setHorizontalAlignment(SwingConstants.CENTER);	
 		
 		if (juego.getMinasAlrededor(ejeY, ejeX) > -1) {
-			numeroColor = correspondenciaColores[juego.getMinasAlrededor(ejeY, ejeX)];
-			textoMinas.setForeground(numeroColor);		
+			textoMinas.setForeground(correspondenciaColores[juego.getMinasAlrededor(ejeY, ejeX)]);		
 		} else {
 			textoMinas.setBackground(Color.RED);
 			textoMinas.setOpaque(true);
 		}
 
-		panelesJuego[ejeY][ejeX].remove(botonesJuego[ejeY][ejeX]);
+		panelesJuego[ejeY][ejeX].remove(botonesJuego[ejeY][ejeX]);		
+		//botonesJuego[ejeY][ejeX].setVisible(false);		
 		panelesJuego[ejeY][ejeX].add(textoMinas);
 		
 		refrescarPantalla();
@@ -220,7 +219,7 @@ public class VentanaPrincipal {
 	 * Metodo que muestra la puntuacion por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		pantallaPuntuacion.setText(juego.getPuntuacion() + "");
+		pantallaPuntuacion.setText(String.valueOf(juego.getPuntuacion()));
 	}
 	
 	/**
