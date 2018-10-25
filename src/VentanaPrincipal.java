@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -136,8 +134,7 @@ public class VentanaPrincipal {
 		
 		//BotonEmpezar:
 		panelEmpezar.add(botonEmpezar);
-		panelPuntuacion.add(pantallaPuntuacion);
-		
+		panelPuntuacion.add(pantallaPuntuacion);		
 	}
 	
 	/**
@@ -150,10 +147,8 @@ public class VentanaPrincipal {
 				ventana.remove(panelJuego);
 				ventana.remove(panelEmpezar);
 				ventana.remove(panelImagen);
-				ventana.remove(panelPuntuacion);
-				
-				juego = new ControlJuego();					
-				
+				ventana.remove(panelPuntuacion);				
+				juego = new ControlJuego();		
 				inicializar();
 				refrescarPantalla();
 			}
@@ -165,11 +160,10 @@ public class VentanaPrincipal {
 				botonesJuego[ejeY][ejeX].addActionListener(actionBoton);
 			}
 		}
-	}
-	
+	}	
 	
 	/**
-	 * Pinta en la pantalla el número de minas que hay alrededor de la celda
+	 * Pinta en la pantalla el numero de minas que hay alrededor de la celda
 	 * Saca el boton que haya en la celda determinada y a�ade un JLabel centrado y no editable con el numero de minas alrededor.
 	 * Se pinta el color del texto según la siguiente correspondecia (consultar la variable correspondeciaColor):
 	 * - 0 : negro
@@ -191,6 +185,9 @@ public class VentanaPrincipal {
 		if (juego.getMinasAlrededor(ejeY, ejeX) > -1) {
 			numeroColor = correspondenciaColores[juego.getMinasAlrededor(ejeY, ejeX)];
 			textoMinas.setForeground(numeroColor);		
+		} else {
+			textoMinas.setBackground(Color.RED);
+			textoMinas.setOpaque(true);
 		}
 
 		panelesJuego[ejeY][ejeX].remove(botonesJuego[ejeY][ejeX]);
@@ -202,7 +199,7 @@ public class VentanaPrincipal {
 	
 	/**
 	 * Muestra una ventana que indica el fin del juego
-	 * @param porExplosion : Un booleano que indica si es final del juego porque ha explotado una mina (true) o bien porque hemos desactivado todas (false) 
+	 * @param porExplosion: Un booleano que indica si es final del juego porque ha explotado una mina (true) o bien porque hemos desactivado todas (false) 
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {		
@@ -220,7 +217,7 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * Metodo que muestra la puntuación por pantalla.
+	 * Metodo que muestra la puntuacion por pantalla.
 	 */
 	public void actualizarPuntuacion() {
 		pantallaPuntuacion.setText(juego.getPuntuacion() + "");
