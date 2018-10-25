@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -45,19 +44,18 @@ public class ControlJuego {
 			int ejeX, ejeY;
 			ejeX = rd.nextInt(LADO_TABLERO);
 			ejeY = rd.nextInt(LADO_TABLERO);
-			if (tablero[ejeX][ejeY] != MINA) {
-				tablero[ejeX][ejeY] = MINA;
-				minas++;
+			if (tablero[ejeY][ejeX] != MINA) {
+				tablero[ejeY][ejeX] = MINA;
 			} else {
 				minas--;	
 			}			
 		}		
 		
 		//Al final del método hay que guardar el número de minas para las casillas que no son mina:
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[i].length; j++) {
-				if (tablero[i][j] != MINA){
-					tablero[i][j] = calculoMinasAdjuntas(i,j);
+		for (int ejeY = 0; ejeY < tablero.length; ejeY++) {
+			for (int ejeX = 0; ejeX < tablero[ejeY].length; ejeX++) {
+				if (tablero[ejeY][ejeX] == MINA){
+					calculoMinasAdjuntas(ejeY,ejeX);
 				}
 			}
 		}
@@ -76,15 +74,14 @@ public class ControlJuego {
 	 * @return : El numero de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
-		int minasAlrededor = 0;
-		for (i = Math.max(0, i-1); i < Math.min(i+1, LADO_TABLERO); i++) {
-			for (j = Math.max(0, j-1); i < Math.min(j+1, LADO_TABLERO); i++) {
-				if (tablero[i][j] == MINA) {
-					minasAlrededor++;
+		for (int ejeY = Math.max(0, i-1); ejeY <= Math.min(i+1, LADO_TABLERO-1); ejeY++) {
+			for (int ejeX = Math.max(0, j-1); ejeX <= Math.min(j+1, LADO_TABLERO-1); ejeX++) {
+				if (tablero[ejeY][ejeX] != MINA) {
+					tablero[ejeY][ejeX] += 1;
 				}
 			}
 		}
-		return minasAlrededor;
+		return tablero[i][j];
 	}
 	
 	/**
@@ -95,21 +92,29 @@ public class ControlJuego {
 	 * @param j: posicion horizontalmente de la casilla a abrir
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
-//	public boolean abrirCasilla(int i, int j){
-//
-//	}
-	
-	
+	public boolean abrirCasilla(int i, int j){
+		int ejeY = i, ejeX = j;
+		
+		if (tablero[ejeY][ejeX] != MINA) {
+			puntuacion++;
+			return true;
+		} else {
+			return false;
+		}
+	}	
 	
 	/**
 	 * Metodo que checkea si se ha terminado el juego porque se han abierto todas las casillas.
 	 * 
 	 * @return Devuelve verdadero si se han abierto todas las celdas que no son minas.
 	 **/
-//	public boolean esFinJuego(){
-//		
-//	}
-	
+	public boolean esFinJuego(){
+		if (puntuacion == Math.pow(LADO_TABLERO, 2) - MINAS_INICIALES) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
 	
 	/**
 	 * Metodo que pinta por pantalla toda la informacion del tablero, se utiliza para depurar
@@ -133,13 +138,15 @@ public class ControlJuego {
 	 * @param j : posicion horizontal de la cela.
 	 * @return Un entero que representa el numero de minas alrededor de la celda
 	 */
-//	public int getMinasAlrededor(int i, int j) {
-//		
-//	}
+	public int getMinasAlrededor(int i, int j) {
+		int ejeY = i, ejeX = j;
+		return tablero[ejeY][ejeX];
+	}
 
 	/**
-	 * Metodo que devuelve la puntuaciÃ³n actual
-	 * @return Un entero con la puntuaciÃ³n actual
+	 * Metodo que devuelve la puntuacion actual
+	 * 
+	 * @return Un entero con la puntuacion actual
 	 */
 	public int getPuntuacion() {
 		return puntuacion;
