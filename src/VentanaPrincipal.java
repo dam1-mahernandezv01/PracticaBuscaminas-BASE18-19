@@ -13,7 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-
+/**
+ * <p>Clase ventana principal donde declaramos e instanciamos los componentes de la ventana princiapl</p>
+ * 
+ * @author Marco Antonio Hernandez Valiente
+ */
 public class VentanaPrincipal {
 
 	//La ventana principal, en este caso, guarda todos los componentes:
@@ -37,6 +41,7 @@ public class VentanaPrincipal {
 	
 	//LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	ControlJuego juego;
+	VentanaPrincipal ventanaPrincipal = this;
 	
 	
 	//Constructor, marca el tamaño y el cierre del frame
@@ -129,34 +134,69 @@ public class VentanaPrincipal {
 			}
 		}
 		
-		//BotónEmpezar:
+		//BotonEmpezar:
 		panelEmpezar.add(botonEmpezar);
 		panelPuntuacion.add(pantallaPuntuacion);
 		
 	}
 	
 	/**
-	 * Método que inicializa todos los lísteners que necesita inicialmente el programa
+	 * Metodo que inicializa todos los liteners que necesita inicialmente el programa
 	 */
 	public void inicializarListeners(){
-		//TODO
+		ActionBoton actionBoton;
+
+		botonEmpezar.addActionListener((e) -> {
+				ventana.remove(panelJuego);
+				ventana.remove(panelEmpezar);
+				ventana.remove(panelImagen);
+				ventana.remove(panelPuntuacion);
+				
+				juego = new ControlJuego();					
+				
+				inicializar();
+				refrescarPantalla();
+			}
+		);
+		
+		for (int ejeY = 0; ejeY < botonesJuego.length; ejeY++) {
+			for (int ejeX = 0; ejeX < panelesJuego[ejeY].length; ejeX++) {
+				actionBoton = new ActionBoton(ventanaPrincipal, ejeY, ejeX);
+				botonesJuego[ejeY][ejeX].addActionListener(actionBoton);
+			}
+		}
 	}
 	
 	
 	/**
 	 * Pinta en la pantalla el número de minas que hay alrededor de la celda
-	 * Saca el botón que haya en la celda determinada y añade un JLabel centrado y no editable con el número de minas alrededor.
+	 * Saca el boton que haya en la celda determinada y a�ade un JLabel centrado y no editable con el numero de minas alrededor.
 	 * Se pinta el color del texto según la siguiente correspondecia (consultar la variable correspondeciaColor):
 	 * - 0 : negro
 	 * - 1 : cyan
 	 * - 2 : verde
 	 * - 3 : naranja
-	 * - 4 ó más : rojo 
-	 * @param i: posición vertical de la celda.
-	 * @param j: posición horizontal de la celda.
+	 * - 4 o mas : rojo 
+	 * @param i: posicion vertical de la celda.
+	 * @param j: posicion horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
-		//TODO
+		int ejeY = i, ejeX = j;
+		Color numeroColor;
+		JLabel textoMinas;
+
+		textoMinas = new JLabel(juego.getMinasAlrededor(ejeY, ejeX) + "");
+		textoMinas.setHorizontalAlignment(SwingConstants.CENTER);	
+		
+		if (juego.getMinasAlrededor(ejeY, ejeX) > -1) {
+			numeroColor = correspondenciaColores[juego.getMinasAlrededor(ejeY, ejeX)];
+			textoMinas.setForeground(numeroColor);		
+		}
+
+		panelesJuego[ejeY][ejeX].remove(botonesJuego[ejeY][ejeX]);
+		panelesJuego[ejeY][ejeX].add(textoMinas);
+		
+		refrescarPantalla();
 	}
 	
 	
@@ -165,19 +205,29 @@ public class VentanaPrincipal {
 	 * @param porExplosion : Un booleano que indica si es final del juego porque ha explotado una mina (true) o bien porque hemos desactivado todas (false) 
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
-	public void mostrarFinJuego(boolean porExplosion) {
-		//TODO
+	public void mostrarFinJuego(boolean porExplosion) {		
+		if (porExplosion) {
+			JOptionPane.showMessageDialog(ventana, "Lo siento, sigue intent�ndolo", "PERDISTE", 0);
+		} else {
+			JOptionPane.showMessageDialog(ventana, "Enhorabuena has ganado", "GANASTE", 1);
+		}		
+		for (int ejeY = 0; ejeY < botonesJuego.length; ejeY++) {
+			for (int ejeX = 0; ejeX < botonesJuego[ejeY].length; ejeX++) {
+				mostrarNumMinasAlrededor(ejeY, ejeX);
+				botonesJuego[ejeY][ejeX].setEnabled(false);
+			}
+		}
 	}
 
 	/**
-	 * Método que muestra la puntuación por pantalla.
+	 * Metodo que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		//TODO
+		pantallaPuntuacion.setText(juego.getPuntuacion() + "");
 	}
 	
 	/**
-	 * Método para refrescar la pantalla
+	 * Metodo para refrescar la pantalla
 	 */
 	public void refrescarPantalla(){
 		ventana.revalidate(); 
@@ -185,7 +235,7 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * Método que devuelve el control del juego de una ventana
+	 * Metodo que devuelve el control del juego de una ventana
 	 * @return un ControlJuego con el control del juego de la ventana
 	 */
 	public ControlJuego getJuego() {
@@ -193,7 +243,7 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * Método para inicializar el programa
+	 * Metodo para inicializar el programa
 	 */
 	public void inicializar(){
 		//IMPORTANTE, PRIMERO HACEMOS LA VENTANA VISIBLE Y LUEGO INICIALIZAMOS LOS COMPONENTES.

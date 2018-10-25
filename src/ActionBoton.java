@@ -10,11 +10,16 @@ import java.awt.event.ActionListener;
  **
  */
 public class ActionBoton implements ActionListener{
+	private VentanaPrincipal ventanaPrincipal;
+	private int ejeY;
+	private int ejeX;
 
-	
+	public ActionBoton() {}
 
-	public ActionBoton() {
-		//TODO
+	public ActionBoton(VentanaPrincipal ventanaPrincipal, int ejeY, int ejeX) {
+		this.ventanaPrincipal = ventanaPrincipal;
+		this.ejeY = ejeY;
+		this.ejeX = ejeX;
 	}
 	
 	/**

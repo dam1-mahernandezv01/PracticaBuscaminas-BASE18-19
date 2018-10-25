@@ -109,11 +109,7 @@ public class ControlJuego {
 	 * @return Devuelve verdadero si se han abierto todas las celdas que no son minas.
 	 **/
 	public boolean esFinJuego(){
-		if (puntuacion == Math.pow(LADO_TABLERO, 2) - MINAS_INICIALES) {
-			return true;
-		} else {
-			return false;
-		}
+		return (puntuacion == (Math.pow(LADO_TABLERO, 2) - MINAS_INICIALES) ? true: false);
 	}	
 	
 	/**
