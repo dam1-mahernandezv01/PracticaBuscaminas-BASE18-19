@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * Clase gestora del tablero de juego.
  * Guarda una matriz de enteros representado el tablero.
@@ -12,8 +14,8 @@ import java.util.Random;
  */
 public class ControlJuego {	
 	private final static int MINA = -1;
-	final int MINAS_INICIALES = 20;
-	final int LADO_TABLERO = 10;
+	static final int LADO_TABLERO = pedirDimension();
+	static final int MINAS_INICIALES = pedirMinas();
 
 	private int [][] tablero;
 	private int puntuacion;	
@@ -26,7 +28,35 @@ public class ControlJuego {
 		inicializarPartida();
 	}
 	
-	
+	// Funciones para pedir las variables
+	private static int pedirDimension() {
+		int dimension = 0;
+		try {
+			dimension = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Dimensión del cuadrado?"));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Debe introducir números");
+			pedirDimension();
+		}		
+		return dimension;
+	}
+
+	private static int pedirMinas() {
+		int minas = 0;
+		try {
+			minas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Número de minas?"));
+			if (minas>=Math.pow(LADO_TABLERO, 2)-1) {
+				JOptionPane.showMessageDialog(null, "No puedes asignar tantas minas en estas dimensiones, máximo " 
+						+ (Math.floor(Math.pow(LADO_TABLERO, 2)-1)));
+				
+				pedirMinas();
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Debe introducir números");
+			pedirMinas();
+		}		
+		return minas;
+	}
+
 	/**
 	 * Metodo para generar un nuevo tablero de partida:
 	 * 
@@ -96,6 +126,7 @@ public class ControlJuego {
 		int ejeY = i, ejeX = j;
 		
 		if (tablero[ejeY][ejeX] != MINA) {
+			java.awt.Toolkit.getDefaultToolkit().beep(); // sonido
 			puntuacion++;
 			return true;
 		} else {
@@ -123,7 +154,7 @@ public class ControlJuego {
 			}
 			System.out.println();
 		}
-		System.out.println("\nPuntuacion: "+puntuacion);
+		System.out.println("\nPuntuacion: " + puntuacion);
 	}
 
 	/**

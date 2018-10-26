@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
  * 
  * @author jesusredondogarcia
  * @author Marco Antonio Hernandez Valiente
- *
  */
 public class ActionBoton implements ActionListener{
 	private VentanaPrincipal ventanaPrincipal;
@@ -29,16 +28,13 @@ public class ActionBoton implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ventanaPrincipal.mostrarNumMinasAlrededor(ejeY, ejeX);
-		
+		ventanaPrincipal.mostrarNumMinasAlrededor(ejeY, ejeX);		
 		if (!ventanaPrincipal.getJuego().abrirCasilla(ejeY, ejeX)) {			
 			ventanaPrincipal.mostrarFinJuego(true);
-		} 
-		
+		} 		
 		if (ventanaPrincipal.getJuego().esFinJuego()) {			
 			ventanaPrincipal.mostrarFinJuego(false);
 		} 
-
 		ventanaPrincipal.actualizarPuntuacion();
 	}
 }
