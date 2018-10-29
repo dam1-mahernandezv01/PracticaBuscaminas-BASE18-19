@@ -35,7 +35,7 @@ public class ControlJuego {
 			dimension = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Dimensión del cuadrado?"));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Debe introducir números");
-			pedirDimension();
+			dimension = pedirDimension();
 		}		
 		return dimension;
 	}
@@ -46,13 +46,12 @@ public class ControlJuego {
 			minas = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Número de minas?"));
 			if (minas>=Math.pow(LADO_TABLERO, 2)-1) {
 				JOptionPane.showMessageDialog(null, "No puedes asignar tantas minas en estas dimensiones, máximo " 
-						+ (Math.floor(Math.pow(LADO_TABLERO, 2)-1)));
-				
-				pedirMinas();
+						+ (Math.floor(Math.pow(LADO_TABLERO, 2)-1)));				
+				minas = pedirMinas();
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Debe introducir números");
-			pedirMinas();
+			minas = pedirMinas();
 		}		
 		return minas;
 	}
@@ -62,7 +61,7 @@ public class ControlJuego {
 	 * 
 	 * @pre: La estructura tablero debe existir. 
 	 * @post: Al final el tablero se habra inicializado con tantas minas como marque la variable MINAS_INICIALES. 
-	 * 			El resto de posiciones que no son minas guardan en el entero cuantas minas hay alrededor de la celda
+	 * El resto de posiciones que no son minas guardan en el entero cuantas minas hay alrededor de la celda
 	 */
 	public void inicializarPartida(){
 		//TODO: Repartir minas e inicializar puntación. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
