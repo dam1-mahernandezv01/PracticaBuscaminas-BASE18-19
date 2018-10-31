@@ -12,9 +12,18 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * <p>Clase ventana principal donde declaramos e instanciamos los componentes de la ventana princiapl</p>
+ * <p>Clase ventana principal donde declaramos e instanciamos los componentes de la 
+ * ventana principal, en el método {@link #inicializar()} es importante que primero hacemos
+ * la ventana visible y luego inicializamos los componentes <br>{@code ventana.setVisible(true);}<br>
+ * {@code inicializarComponentes();}<br>{@code inicializarListeners();}</p>
  * 
+ * @author Jesus Redondo Garcia
  * @author Marco Antonio Hernandez Valiente
+ * @version 1.0
+ * @since 1.0
+ * @see ActionBoton
+ * @see ControlJuego
+ * @see Principal
  */
 public class VentanaPrincipal {
 	//La ventana principal, en este caso, guarda todos los componentes:
@@ -38,15 +47,19 @@ public class VentanaPrincipal {
 	//LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	ControlJuego juego;	
 	
-	//Constructor, marca el tamaño y el cierre del frame
+	/**
+	 * Constructor, marca el tamaño y el cierre del frame
+	 */
 	public VentanaPrincipal() {
-		ventana = new JFrame();
+		ventana = new JFrame("Buscaminas de Marco Antonio Hernández");
 		ventana.setBounds(100, 100, ControlJuego.LADO_TABLERO*50+200, ControlJuego.LADO_TABLERO*50+100);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		juego = new ControlJuego();
 	}
 	
-	//Inicializa todos los componentes del frame
+	/**
+	 * Inicializa todos los componentes del frame
+	 */
 	public void inicializarComponentes(){		
 		//Definimos el layout:
 		ventana.setLayout(new GridBagLayout());
@@ -131,7 +144,7 @@ public class VentanaPrincipal {
 	}
 	
 	/**
-	 * Metodo que inicializa todos los liteners que necesita inicialmente el programa
+	 * Metodo que inicializa todos los listeners que necesita inicialmente el programa
 	 */
 	public void inicializarListeners(){
 		botonEmpezar.addActionListener((e) -> {
@@ -157,11 +170,14 @@ public class VentanaPrincipal {
 	 * Pinta en la pantalla el numero de minas que hay alrededor de la celda
 	 * Saca el boton que haya en la celda determinada y añade un JLabel centrado y no editable con el numero de minas alrededor.
 	 * Se pinta el color del texto segÃºn la siguiente correspondecia (consultar la variable correspondeciaColor):
-	 * - 0 : negro
-	 * - 1 : cyan
-	 * - 2 : verde
-	 * - 3 : naranja
-	 * - 4 o mas : rojo 
+	 * <ul>
+	 * 		<li>0 : negro</li>
+	 * 		<li>1 : cyan</li>
+	 * 		<li>2 : verde</li>
+	 * 		<li>3 : naranja</li>
+	 * 		<li>o mas : rojo</li>
+	 * </ul>
+	 * 
 	 * @param i: posicion vertical de la celda.
 	 * @param j: posicion horizontal de la celda.
 	 */
@@ -223,6 +239,7 @@ public class VentanaPrincipal {
 
 	/**
 	 * Metodo que devuelve el control del juego de una ventana
+	 * 
 	 * @return un ControlJuego con el control del juego de la ventana
 	 */
 	public ControlJuego getJuego() {

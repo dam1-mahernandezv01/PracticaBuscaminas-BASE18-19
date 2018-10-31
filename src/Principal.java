@@ -2,8 +2,13 @@ import java.awt.EventQueue;
 
 /**
  * Clase principal
- * @author jesusredondogarcia
- *
+ * 
+ * @author Jesus Redondo Garcia
+ * @version 1.0
+ * @since 1.0
+ * @see ActionBoton
+ * @see ControlJuego
+ * @see VentanaPrincipal
  */
 public class Principal {
 
@@ -23,5 +28,4 @@ public class Principal {
 			}
 		});
 	}
-
 }

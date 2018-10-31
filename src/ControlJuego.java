@@ -3,23 +3,37 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
- * Clase gestora del tablero de juego.
- * Guarda una matriz de enteros representado el tablero.
- * Si hay una mina en una posicion guarda el numero -1
- * Si no hay una mina, se guarda cuantas minas hay alrededor.
- * Almacena la puntuacion de la partida
+ * <p>Clase gestora del tablero de juego.</p>
+ * <p>Guarda una matriz de enteros representado el tablero.</p>
+ * <p>Si hay una mina en una posicion guarda el numero -1</p>
+ * <p>Si no hay una mina, se guarda cuantas minas hay alrededor.</p>
+ * <p>Almacena la puntuacion de la partida</p>
  * 
- * @author jesusredondogarcia
+ * @author Jesus Redondo Garcia
  * @author Marco Antonio Hernandez Valiente
+ * @version 1.0
+ * @since 1.0
+ * @see ActionBoton
+ * @see Principal
+ * @see VentanaPrincipal
  */
 public class ControlJuego {	
 	private final static int MINA = -1;
+	/**
+	 * Número de casilla que tendra de lado nuestro tablero
+	 */
 	static final int LADO_TABLERO = pedirDimension();
+	/**
+	 * Minas que tendrá nuestro tablero
+	 */
 	static final int MINAS_INICIALES = pedirMinas();
 
 	private int [][] tablero;
 	private int puntuacion;	
 	
+	/**
+	 * Constructor
+	 */
 	public ControlJuego() {
 		//Creamos el tablero:
 		tablero = new int[LADO_TABLERO][LADO_TABLERO];
@@ -29,7 +43,12 @@ public class ControlJuego {
 	}
 	
 	// Funciones para pedir las variables
-	private static int pedirDimension() {
+	/**
+	 * Método que devuelve el número de casillas que tendrá cada uno de los lados
+	 * 
+	 * @return número de casillas que tendrá ellado
+	 */
+	public static int pedirDimension() {
 		int dimension = 0;
 		try {
 			dimension = Integer.parseInt(JOptionPane.showInputDialog(null, "¿Dimensión del cuadrado?"));
@@ -40,6 +59,11 @@ public class ControlJuego {
 		return dimension;
 	}
 
+	/**
+	 * Método que que devuelve el número de minas que debe tener el juego
+	 * 
+	 * @return número de minas a introducir
+	 */
 	private static int pedirMinas() {
 		int minas = 0;
 		try {
@@ -60,8 +84,8 @@ public class ControlJuego {
 	 * Metodo para generar un nuevo tablero de partida:
 	 * 
 	 * @pre: La estructura tablero debe existir. 
-	 * @post: Al final el tablero se habra inicializado con tantas minas como marque la variable MINAS_INICIALES. 
-	 * El resto de posiciones que no son minas guardan en el entero cuantas minas hay alrededor de la celda
+	 * @post: Al final el tablero se habra inicializado con tantas minas como marque la variable MINAS_INICIALES. El resto de 
+	 * posiciones que no son minas guardan en el entero cuantas minas hay alrededor de la celda
 	 */
 	public void inicializarPartida(){
 		//TODO: Repartir minas e inicializar puntación. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
@@ -101,7 +125,7 @@ public class ControlJuego {
 	 * @param i: posicion vertical de la casilla a rellenar
 	 * @param j: posicion horizontal de la casilla a rellenar
 	 * @return : El numero de minas que hay alrededor de la casilla [i][j]
-	 **/
+	 */
 	private int calculoMinasAdjuntas(int i, int j){
 		for (int ejeY = Math.max(0, i-1); ejeY <= Math.min(i+1, LADO_TABLERO-1); ejeY++) {
 			for (int ejeX = Math.max(0, j-1); ejeX <= Math.min(j+1, LADO_TABLERO-1); ejeX++) {
@@ -114,7 +138,7 @@ public class ControlJuego {
 	}
 	
 	/**
-	 * Metodo que nos permite 
+	 * Metodo que nos devuelve un true cuando la casilla abierta no sea una mina 
 	 * 
 	 * @pre : La casilla nunca debe haber sido abierta antes, no es controlado por el ControlJuego. Por lo tanto siempre sumaremos puntos
 	 * @param i: posicion verticalmente de la casilla a abrir
